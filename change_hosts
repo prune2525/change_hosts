@@ -1,0 +1,42 @@
+# hosts_change
+#!/bin/sh
+var=$1
+
+#check
+if [ -z $var ]; then
+  exit
+else
+  case "$var" in
+    #your host key
+    "xxx" ) : ;;
+    * ) exit ;;
+  esac
+fi
+
+mm=`date +'%Y%m%d'`
+
+cd $HOME
+if [ -d "hosts" ]; then
+  :
+else
+  #Initial activation
+  #mkdir
+  mkdir hosts
+  cd hosts
+  mkdir "your directory"
+  find . -name "hosts*" -type d -exec cp /etc/hosts {} \;
+  echo "hosts update..."
+  exit 
+fi
+
+#backup
+cp -f /etc/hosts $HOME/hosts/backup/hosts_bk_$mm
+
+#main system
+#hosts_change
+case "$var" in
+  "xxx" ) cp $HOME/hosts/"your directory"/"xxx" $HOME/hosts/"xxx"/hosts && sudo cp -f $HOME/hosts/"your directory"/hosts /etc/hosts && rm $HOME/hosts/"your directory"/hosts ;;
+  #Add as you like
+esac
+
+exit
