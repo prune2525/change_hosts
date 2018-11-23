@@ -23,7 +23,7 @@ else
   #mkdir
   mkdir hosts
   cd hosts
-  mkdir "your directory"
+  mkdir bachup, "your directory"
   find . -name "hosts*" -type d -exec cp /etc/hosts {} \;
   echo "hosts update..."
   exit 
