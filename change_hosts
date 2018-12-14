@@ -9,6 +9,15 @@ else
   case "$var" in
     #your host key
     "xxx" ) : ;;
+    #chk host
+    "chk" )
+	if [ -d $HOME/hosts/.chk/ ]; then
+		basename $HOME/hosts/.chk/*
+		exit
+	 else
+		:
+	fi
+	;;
     * ) exit ;;
   esac
 fi
@@ -23,7 +32,7 @@ else
   #mkdir
   mkdir hosts
   cd hosts
-  mkdir bachup, "your directory"
+  mkdir bachup .chk "your directory"
   find . -name "hosts*" -type d -exec cp /etc/hosts {} \;
   echo "hosts update..."
   exit 
@@ -31,6 +40,12 @@ fi
 
 #backup
 cp -f /etc/hosts $HOME/hosts/backup/hosts_bk_$mm
+
+#check
+if [ -d $HOME/hosts/.chk/ ]; then
+ rm $HOME/hosts/.chk/*
+fi
+touch $HOME/hosts/.chk/$var
 
 #main system
 #hosts_change
